@@ -2,7 +2,7 @@ name: PR Check and Test
 
 on:
   pull_request:  # すべてのブランチのPRで実行
-    branches: ["*"] # すべてのブランチを対象にする
+    types: [opened, reopened, synchronize]
 
 jobs:
   lint-format-test:
@@ -38,4 +38,4 @@ jobs:
 
       # vitestのテスト実行
       - name: Run vitest tests
-        run: npm run test -- --coverage
+        run: npm run test
