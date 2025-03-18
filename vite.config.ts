@@ -6,7 +6,7 @@ import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
-	base: "./",
+	base: "/todo/",
 	root: "src",
 	plugins: [react(), tsconfigPaths(), tailwindcss()],
 	publicDir: resolve(__dirname, "public"),
