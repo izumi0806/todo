@@ -1,7 +1,7 @@
-import DeleteIcon from "@mui/icons-material/Delete";
 import CheckCircleIcon from "@mui/icons-material/CheckCircle";
-import type { Todo } from "../types/Todo";
+import DeleteIcon from "@mui/icons-material/Delete";
 import { IconButton } from "@mui/material";
+import type { Todo } from "../types/Todo";
 
 type TodoListItemProps = {
 	todo: Todo;
@@ -17,10 +17,10 @@ const TodoListItem = (props: TodoListItemProps) => {
 				<p className="text-sm">{todo.task}</p>
 			</div>
 			<div className="flex space-x-2">
-				<IconButton onClick={() => removeTodo(todo.id)}>
+				<IconButton aria-label="delete" onClick={() => removeTodo(todo.id)}>
 					<DeleteIcon color="error" />
 				</IconButton>
-				<IconButton onClick={() => completeTodo(todo.id)}>
+				<IconButton aria-label="complete" onClick={() => completeTodo(todo.id)}>
 					<CheckCircleIcon color="success" />
 				</IconButton>
 			</div>

@@ -1,5 +1,5 @@
-import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import Dialog from "@/components/Dialog";
+import AddCircleOutlineIcon from "@mui/icons-material/AddCircleOutline";
 import { IconButton, TextField } from "@mui/material";
 import { useState } from "react";
 
@@ -26,6 +26,7 @@ const AddTodoDialogButton = (props: AddTodoDialogButtonProps) => {
 			<IconButton
 				sx={{ position: "absolute", right: 0, bottom: 0 }}
 				onClick={() => setIsOpen(true)}
+				aria-label="add"
 			>
 				<AddCircleOutlineIcon fontSize="large" color="primary" />
 			</IconButton>
