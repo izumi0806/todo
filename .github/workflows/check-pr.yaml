@@ -28,13 +28,13 @@ jobs:
       - name: Install Biome
         run: npm install -g @biomejs/biome
 
-      # Biomeのリンター実行（修正なしでエラー検出）
+      # Biomeのリンター実行
       - name: Run Biome Linter
-        run: biome lint ./src ./test --no-fix
+        run: biome lint ./src ./test
 
-      # Biomeのフォーマットチェック（修正なし）
+      # Biomeのフォーマットチェック
       - name: Run Biome Formatter
-        run: biome format ./src ./test --check
+        run: biome format ./src ./test
 
       # vitestのテスト実行
       - name: Run vitest tests
