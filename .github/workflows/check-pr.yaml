@@ -17,8 +17,10 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: 18
-          cache: npm  # npm のキャッシュを有効化
+          node-version: 22
+          node-version-file: ${{ env.WORKING_DIRECTORY }}/package.json
+          cache: 'npm'
+          cache-dependency-path: '**/package-lock.json'
 
       # 依存関係のインストール
       - name: Install dependencies
