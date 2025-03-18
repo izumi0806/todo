@@ -1,27 +1,51 @@
 import "@testing-library/jest-dom";
-import { fireEvent, render, screen } from "@testing-library/react";
+import { fireEvent, render, screen, waitFor } from "@testing-library/react";
 import React from "react";
 import { describe, expect, test } from "vitest";
 import App from "../src/App";
 
 describe("App Component", () => {
-	test("renders Vite + React heading", () => {
+	test("should render the todo list title", () => {
 		render(<App />);
-		const headingElement = screen.getByText(/Vite \+ React/i);
-		expect(headingElement).toBeInTheDocument();
+		expect(screen.getByText("Todo List")).toBeInTheDocument();
 	});
 
-	test("renders initial count value", () => {
+	test("should remove a todo from the list", async () => {
 		render(<App />);
-		const countElement = screen.getByText(/count is 0/i);
-		expect(countElement).toBeInTheDocument();
+		fireEvent.click(screen.getByRole("button", { name: /add/i }));
+		fireEvent.change(screen.getByLabelText("タスク"), {
+			target: { value: "Task to be removed" },
+		});
+		fireEvent.click(screen.getByRole("button", { name: "確定" }));
+		expect(screen.getByText("Task to be removed")).toBeInTheDocument();
+
+		await waitFor(() => {
+			expect(
+				screen.queryByRole("button", { name: "確定" }),
+			).not.toBeInTheDocument();
+		});
+
+		fireEvent.click(screen.getByRole("button", { name: /delete/i }));
+		expect(screen.queryByText("Task to be removed")).not.toBeInTheDocument();
 	});
 
-	test("increments count on button click", () => {
+	test("should mark a todo as completed", async () => {
 		render(<App />);
-		const buttonElement = screen.getByRole("button", { name: /count is/i });
-		fireEvent.click(buttonElement);
-		const countElement = screen.getByText(/count is 1/i);
-		expect(countElement).toBeInTheDocument();
+		screen.debug();
+		fireEvent.click(screen.getByRole("button", { name: /add/i }));
+		fireEvent.change(screen.getByLabelText("タスク"), {
+			target: { value: "Task to be completed" },
+		});
+		fireEvent.click(screen.getByRole("button", { name: "確定" }));
+		expect(screen.getByText("Task to be completed")).toBeInTheDocument();
+
+		await waitFor(() => {
+			expect(
+				screen.queryByRole("button", { name: "確定" }),
+			).not.toBeInTheDocument();
+		});
+
+		fireEvent.click(screen.getByRole("button", { name: /complete/i }));
+		expect(screen.queryByText("Task to be completed")).not.toBeInTheDocument();
 	});
 });

@@ -1,18 +1,15 @@
-import path, { resolve } from "node:path";
+import { resolve } from "node:path";
 import react from "@vitejs/plugin-react-swc";
+import tsconfigPaths from "vite-tsconfig-paths";
+import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 
 // https://vitejs.dev/config/
 export default defineConfig({
 	base: "./",
 	root: "src",
-	plugins: [react()],
+	plugins: [react(), tsconfigPaths(), tailwindcss()],
 	publicDir: resolve(__dirname, "public"),
-	resolve: {
-		alias: {
-			"@": path.resolve(__dirname, "src"), // `@/components` → `src/components`
-		},
-	},
 	build: {
 		// distフォルダに出力
 		outDir: resolve(__dirname, "dist"),
