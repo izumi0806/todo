@@ -1,0 +1,15 @@
+// Vitest Snapshot v1, https://vitest.dev/guide/snapshot.html
+
+exports[`Layout > should render 1`] = `
+<div
+  class="flex min-h-screen justify-center bg-gray-100"
+>
+  <div
+    class="w-10/12 min-h-[90%] bg-white shadow-lg rounded-xl p-6 my-8"
+  >
+    <div>
+      Test Content
+    </div>
+  </div>
+</div>
+`;

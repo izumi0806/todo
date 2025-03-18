@@ -1,0 +1,43 @@
+name: PR Check and Test
+
+on:
+  pull_request:  # すべてのブランチのPRで実行
+    types: [opened, reopened, synchronize]
+
+jobs:
+  lint-format-test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # コードをチェックアウト
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      # Node.js のセットアップ
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+
+      # 依存関係のインストール
+      - name: Install dependencies
+        run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install  
+
+      # Biomeのインストール（グローバルにインストール）
+      - name: Install Biome
+        run: npm install -g @biomejs/biome
+
+      # Biomeのリンター実行
+      - name: Run Biome Linter
+        run: biome lint ./src ./test
+
+      # Biomeのフォーマットチェック
+      - name: Run Biome Formatter
+        run: biome format ./src ./test
+
+      # vitestのテスト実行
+      - name: Run vitest tests
+        run: npm run test
