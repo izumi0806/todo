@@ -36,14 +36,11 @@ jobs:
           node-version: 22 # 必要な Node.js のバージョンを指定
           cache: "npm"  # npm のキャッシュを有効化
       - name: Install dependencies
-        run: |
-          rm -rf node_modules package-lock.json
-          npm cache clean --force
-          npm install  
+        run: npm ci
       - name: Build
         run: npm run build
       - name: Setup Pages
-        uses: actions/configure-pages@v5
+        uses: actions/configure-pages@v4
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
         with:
