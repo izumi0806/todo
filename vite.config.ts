@@ -1,4 +1,4 @@
-import path from "node:path";
+import path, { resolve } from "node:path";
 import react from "@vitejs/plugin-react-swc";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
@@ -12,5 +12,9 @@ export default defineConfig({
 		alias: {
 			"@": path.resolve(__dirname, "src"), // `@` を `src` にマッピング
 		},
+	},
+	build: {
+		// distフォルダに出力
+		outDir: resolve(__dirname, "dist"),
 	},
 });
