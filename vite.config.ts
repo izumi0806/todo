@@ -1,6 +1,5 @@
-import { resolve } from "node:path";
+import path from "node:path";
 import react from "@vitejs/plugin-react-swc";
-import tsconfigPaths from "vite-tsconfig-paths";
 import tailwindcss from "@tailwindcss/vite";
 import { defineConfig } from "vite";
 
@@ -8,23 +7,10 @@ import { defineConfig } from "vite";
 export default defineConfig({
 	base: "/todo/",
 	root: "src",
-	plugins: [react(), tsconfigPaths(), tailwindcss()],
-	publicDir: resolve(__dirname, "public"),
-	build: {
-		// distフォルダに出力
-		outDir: resolve(__dirname, "dist"),
-		// 存在しないときはフォルダを作成する
-		emptyOutDir: true,
-		copyPublicDir: true,
-		rollupOptions: {
-			// entry pointがあるindex.htmlのパス
-			input: {
-				"": resolve(__dirname, "src/index.html"),
-			},
-			// bundle.jsを差し替えする
-			output: {
-				entryFileNames: "assets/bundle.js",
-			},
+	plugins: [react(), tailwindcss()],
+	resolve: {
+		alias: {
+			"@": path.resolve(__dirname, "src"), // `@` を `src` にマッピング
 		},
 	},
 });
