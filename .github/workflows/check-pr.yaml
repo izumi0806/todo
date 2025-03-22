@@ -21,7 +21,10 @@ jobs:
 
       # 依存関係のインストール
       - name: Install dependencies
-        run: npm ci
+        run: |
+          rm -rf node_modules package-lock.json
+          npm cache clean --force
+          npm install  
 
       # Biomeのインストール（グローバルにインストール）
       - name: Install Biome
